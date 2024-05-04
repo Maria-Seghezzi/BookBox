@@ -1,0 +1,20 @@
+{% extends "layout.html" %}
+
+{% block title %}Sign In{% endblock %}
+
+{% block main %}
+<h1>Sign In</h1>
+<form action="/sign_in" method="post">
+        <div class="mb-3"><input type="text" name="username" placeholder="Username" class="form-control mx-auto w-auto"
+                        autocomplete="off">
+        </div>
+        <div class="mb-3"><input type="email" name="email" placeholder="Email" class="form-control mx-auto w-auto">
+        </div>
+        <div class="mb-3"><input type="password" name="password1" placeholder="Password"
+                        class="form-control mx-auto w-auto"></div>
+        <div class="mb-3"><input type="password" name="password2" placeholder="Confirm password"
+                        class="form-control mx-auto w-auto"></div>
+        <button type="submit" class="btn btn-primary">Sign In</button>
+</form>
+
+{% endblock %}

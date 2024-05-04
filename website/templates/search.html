@@ -1,0 +1,51 @@
+{% extends "layout.html" %}
+
+{% block title %}Search{% endblock %}
+
+{% block main %}
+
+<h1>Search Books</h1>
+
+<form action="/search" method="post">
+    <div class="mb-3"><input type="search" name="search" placeholder="ISBN, title or author"
+            class="form-control mx-auto w-auto">
+    </div>
+    <button type="submit" class="btn btn-primary">Search</button>
+</form>
+<br>
+{% if books %}
+<div class="books-container container">
+    {% for book in books %}
+    <div class="card mb-3 book-card" style="max-width: 540px; width: 500px; min-height: 250px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
+                    class="book-cover img-fluid rounded-start" loading="lazy" />
+            </div>
+            <div class=" col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <h6 class="card-subtitle">{{book.author}}</h6>
+                    <p class="card-text"><span class="bold">Pages:</span> {{book.page_number}}</p>
+                    <p class="card-text"><span class="bold">Category:</span> {{book.category}}</p>
+                    <p class="card-text"><span class="bold">ISBN:</span> {{book.isbn}}</p>
+                    <form action="/book_info" method="get">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <button type="submit" class="btn btn-primary absolute">View more</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+</table>
+{% elif books == [] %}
+<p style="text-align: center; font-size: 20px;">We couldn't find the book you're looking for, would you like to add it
+    to our database?
+    <p />
+<div class="mb-3" style="text-align: center;">
+    <a href="/add_book" class="btn btn-primary">Add</a>
+</div>
+{% endif %}
+{% endblock %}

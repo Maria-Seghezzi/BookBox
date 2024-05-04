@@ -1,0 +1,115 @@
+{% extends "layout.html" %}
+
+{% block title %}Home{% endblock %}
+
+{% block main %}
+<h1>Welcome, {{user.username}}</h1>
+{% if books_reading %}
+<h3>Currently reading: {{books_reading|length}} books</h3>
+{% endif %}
+<div class="books-container container">
+    {% for book, date_started in books_reading %}
+    <div class="card mb-3" style="max-width: 540px; width: 500px; min-height: 250px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
+                    class="book-cover img-fluid rounded-start" loading="lazy" />
+            </div>
+            <div class=" col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <h6 class="card-subtitle">{{book.author}}</h6>
+                    <p class="card-text"><span class="bold">Pages:</span> {{book.page_number}}</p>
+                    <p class="card-text"><span class="bold">Category:</span> {{book.category}}</p>
+                    <p class="card-text"><span class="bold">Started:</span> {{date_started}}</p>
+                    <form action="/book_info" method="get">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <button type="submit" class="btn btn-primary absolute"><i
+                                class="bi bi-arrow-up-right-circle"></i></button>
+                    </form>
+                    <form action="/remove_from_library" method="post">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input type="hidden" name="page" value="home">
+                        <button type="submit" class="btn btn-danger absolute-left">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if books_want_read %}
+<h3>Want to read: {{books_want_read|length}} books</h3>
+{% endif %}
+<div class="books-container container">
+    {% for book in books_want_read %}
+    <div class="card mb-3" style="max-width: 540px; width: 500px; min-height: 250px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
+                    class="book-cover img-fluid rounded-start" loading="lazy" />
+            </div>
+            <div class=" col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <h6 class="card-subtitle">{{book.author}}</h6>
+                    <p class="card-text"><span class="bold">Pages:</span> {{book.page_number}}</p>
+                    <p class="card-text"><span class="bold">Category:</span> {{book.category}}</p>
+                    <form action="/book_info" method="get">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <button type="submit" class="btn btn-primary absolute"><i
+                                class="bi bi-arrow-up-right-circle"></i></button>
+                    </form>
+                    <form action="/remove_from_library" method="post">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input type="hidden" name="page" value="home">
+                        <button type="submit" class="btn btn-danger absolute-left">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if books_read %}
+<h3>Read: {{books_read|length}} books</h3>
+{% endif %}
+<div class="books-container container">
+    {% for book, date_started, date_finished in books_read %}
+    <div class="card mb-3 book-card" style="max-width: 540px; width: 500px; min-height: 250px">
+        <div class="row g-0">
+            <div class="col-md-4">
+                <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-M.jpg"
+                    class="book-cover img-fluid rounded-start" loading="lazy" />
+            </div>
+            <div class=" col-md-8">
+                <div class="card-body">
+                    <h5 class="card-title">{{book.title}}</h5>
+                    <h6 class="card-subtitle">{{book.author}}</h6>
+                    <p class="card-text"><span class="bold">Pages:</span> {{book.page_number}}</p>
+                    <p class="card-text"><span class="bold">Category:</span> {{book.category}}</p>
+                    <p class="card-text"><span class="bold">Started:</span> {{date_started}}</p>
+                    <p class="card-text"><span class="bold">Finished:</span> {{date_finished}}</p>
+                    <form action="/book_info" method="get">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <button type="submit" class="btn btn-primary absolute"><i
+                                class="bi bi-arrow-up-right-circle"></i></button>
+                    </form>
+                    <form action="/remove_from_library" method="post">
+                        <input type="hidden" name="id" value="{{book.id}}">
+                        <input type="hidden" name="page" value="home">
+                        <button type="submit" class="btn btn-danger absolute-left">Remove</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% if not books_want_read and not books_read and not books_reading %}
+<h3>Add books to your library to see them in the homepage</h3>
+<div class="mb-3" style="text-align: center;"><a href="/search" class="btn btn-primary" role="button">Search books</a>
+</div>
+{% endif %}
+
+{% endblock %}

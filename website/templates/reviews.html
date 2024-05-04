@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Reviews{% endblock %}
+
+{% block main %}
+<h1>My reviews</h1>
+{% for book, review in reviews %}
+<div class="card w-50 review-card review-card-my-reviews">
+    <div class="card-body">
+        <h5 class="card-title">{{book.title}}</h5>
+        <h6 class="card-title" style="color: #6f6f6f">{{book.author}}</h6>
+        <p class="card-text">{{review.text}}</p>
+        <p class="footer">{{review.date}}</p>
+        <div class="flex-star">
+            {% for a in range(review.stars) %}
+            <i class="bi bi-star-fill"></i>
+            {% endfor %}
+            {% for a in range(5-(review.stars)) %}
+            <i class="bi bi-star"></i>
+            {% endfor %}
+        </div>
+        <form action="/reviews" method="post">
+            <input type="hidden" name="id" value="{{review.id}}">
+            <button class="btn btn-danger absolute" type="submit">Delete</button>
+        </form>
+    </div>
+</div>
+
+{% endfor %}
+{% endblock %}

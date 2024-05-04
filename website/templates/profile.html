@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+{% block title %}Profile{% endblock %}
+
+{% block main %}
+<h1>Profile</h1>
+<a href="/profile" hidden class="back-arrow btn btn-primary"><i class="bi bi-caret-left-fill"></i>Back</a>
+<form action="/profile" method="post">
+        <div class="mb-3"><input type="text" readonly disabled name="username" value="{{user.username}}"
+                        placeholder="Username" class="form-control mx-auto w-auto" style="min-width: 250px;" id="name">
+        </div>
+        <div class="mb-3"><input type="email" readonly disabled name="email" value="{{user.email}}" placeholder="Email"
+                        class="form-control mx-auto w-auto" style="min-width: 250px;" id="mail"></div>
+        <div class="mb-3"><input type="password" hidden name="prev_password" placeholder="Current password"
+                        class="form-control mx-auto w-auto" style="min-width: 250px;" id="prev_password"></div>
+        <div class="mb-3"><input type="password" hidden name="new_password" placeholder="New password"
+                        class="form-control mx-auto w-auto" style="min-width: 250px;" id="new_password"></div>
+        <button type="button" class="btn btn-primary" id="change_btn">Edit Profile</button>
+        <button type="bsubmit" class="btn btn-primary" id="submit_btn" hidden>Update</button>
+</form>
+<div class="separator"></div>
+<div class="mb-3" style="text-align:center;"><a class="btn btn-danger" href="/delete_account" role="button"
+                id="delete_btn">Delete
+                account</a></div>
+{% endblock %}

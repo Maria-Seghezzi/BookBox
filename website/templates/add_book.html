@@ -1,0 +1,73 @@
+{% extends "layout.html" %}
+
+{% block title %}Add book{% endblock %}
+
+{% block main %}
+<h1>Add book</h1>
+<form action="/add_book" method="post" style="margin: 10px auto; width: 75vw;">
+    <div class="row">
+        <div class="col">
+            <div class="mb-3"><input type="text" name="title" placeholder="Title" class="form-control mx-auto w-auto"
+                    autocomplete="off"></div>
+        </div>
+        <div class="col">
+            <div class="mb-3"><input type="text" name="author" placeholder="Author" class="form-control mx-auto w-auto"
+                    autocomplete="off"></div>
+        </div>
+        <div class="col">
+            <div class="mb-3"><input type="number" name="pages" placeholder="Page number"
+                    class="form-control mx-auto w-auto">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3"><input type="number" name="isbn" placeholder="ISBN" class="form-control mx-auto w-auto">
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" list="category_list" name="category" placeholder="Category"
+                    autocomplete="off">
+                <datalist id="category_list">
+                    <option value="Fiction">
+                    <option value="Mystery">
+                    <option value="Nonfiction">
+                    <option value="Classic">
+                    <option value="Young Adult">
+                </datalist>
+            </div>
+        </div>
+        <div class="col">
+            <div class="mb-3">
+                <input class="form-control mx-auto w-auto" list="language_list" name="language" placeholder="Language"
+                    autocomplete="off">
+                <datalist id="language_list">
+                    <option value="English">
+                    <option value="French">
+                    <option value="Italian">
+                    <option value="Spanish">
+                    <option value="Russian">
+                </datalist>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <input type="text" name="publisher" placeholder="Publisher" class="form-control mx-auto w-auto">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <div class="mb-3">
+                <textarea class="form-control mx-auto w-auto" placeholder="Description" name="description"
+                    id="add_description" cols="50"></textarea>
+            </div>
+        </div>
+    </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Add</button>
+</form>
+{% endblock %}

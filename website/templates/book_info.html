@@ -1,0 +1,126 @@
+{% extends "layout.html" %}
+
+{% block title %}{{book.title}}{% endblock %}
+
+{% block main %}
+<h1 class="title">{{book.title}}</h1>
+<h2 class="subtitle">{{book.author}}</h2>
+<div class="container text-center">
+    <div class="grid-row row">
+        <div class="col">
+            <img src="https://covers.openlibrary.org/b/isbn/{{book.isbn}}-L.jpg" class="book-cover-info img-fluid"
+                loading="lazy" style="max-height: 25rem" />
+        </div>
+        <div class="col info-col">
+            <div class="card book-info-card" style="width: 18vw;"">
+                <div class=" card-header">
+                Information
+            </div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Publisher: </strong>{{book.publisher}}</li>
+                <li class="list-group-item"><strong>Category: </strong>{{book.category}}</li>
+                <li class="list-group-item"><strong>Page number: </strong>{{book.page_number}}</li>
+                <li class="list-group-item"><strong>Language: </strong>{{book.language}}</li>
+                <li class="list-group-item"><strong>ISBN: </strong>{{book.isbn}}</li>
+            </ul>
+        </div>
+    </div>
+    <div class="col info-col">
+        {% if not user_book %}
+        <h3>Add the book to your library!</h3>
+        <form action="/book_info" method="post">
+            <input type="hidden" value="{{book.id}}" name="id">
+            <div class="mb-3">
+                <select class="form-select  mx-auto w-auto" style="min-width: 20vw; height: auto;" name="status">
+                    <option disabled selected>Select status</option>
+                    <option value="read">Read</option>
+                    <option value="reading">Currently reading</option>
+                    <option value="want_to_read">Want to read</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-success">Add</button>
+        </form>
+        {% else %}
+        {% if user_book.status == "reading" %}
+        <h3>You are reading this book!</h3>
+        {% elif user_book.status == "read" %}
+        <h3>You already read this book!</h3>
+        {% else %}
+        <h3>You want to read this book!</h3>
+        {% endif %}
+        <h4>Change reading dates</h4>
+        <form action="change_date" method="post" class="info-review-form">
+            <input type="hidden" value="{{book.id}}" name="id">
+            <div class="mb-3">
+                <label for="date_started" class="form-label" style=>Started</label>
+                <input type="date" name="date_started" id="date_started" class="form-control"
+                    value="{{user_book.date_started}}" max={{today_date}}>
+            </div>
+            <div class="mb-3">
+                <label for="date_finished" class="form-label" style=>Finished</label>
+                <input type="date" name="date_finished" id="date_finished" class="form-control"
+                    value="{{user_book.date_finished}}" max="{{today_date}}">
+            </div>
+            <div class="mb-3"><button type="submit" class="btn btn-success">Update</button></div>
+        </form>
+        <form action="/remove_from_library" method="post">
+            <input type="hidden" name="id" value="{{book.id}}">
+            <input type="hidden" name="page" value="info">
+            <div class="mb3"><button type="submit" class="btn btn-danger">Remove from library</button></div>
+        </form>
+        {% endif %}
+    </div>
+</div>
+<div class="grid-row row">
+    <div class="col info-col description-col">
+        <h3>Description</h3>
+        <p class="description" style="text-align: left;" class="description-info">{{book.description}}</p>
+    </div>
+    <div class="col info-col">
+        {% if user_book.status == "read"%}
+        <h3>Review this book!</h3>
+        <form action="/post_review" method="post">
+            <input type="hidden" value="{{book.id}}" name="id">
+            <div class="flex-form">
+                <div class="mb-3"><textarea placeholder="Start typing..." id="review" name="review"
+                        class="form-control flex-form-item" rows="4" cols="40"
+                        style="display: block; margin: auto;"></textarea></div>
+                <div class="mb-3">
+                    <select class="form-select flex-form-item" style="width: 100px;" name="stars">
+                        <option disabled selected>Stars</option>
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-success">Post</button>
+        </form>
+        {% endif %}
+    </div>
+</div>
+<div class="grid-row row">
+    <h3>Reviews</h3>
+    {% for review in book.reviews %}
+    <div class="card review-card">
+        <div class="card-body">
+            {{review.text}}
+        </div>
+        <div class="flex-star">
+            {% for a in range(review.stars) %}
+            <i class="bi bi-star-fill"></i>
+            {% endfor %}
+            {% for a in range(5-(review.stars)) %}
+            <i class="bi bi-star"></i>
+            {% endfor %}
+        </div>
+        <footer class="blockquote-footer">{{review.person_username}}</footer>
+        <div class="card-footer" style="text-align: left;">{{review.date}}</div>
+    </div>
+    {% endfor %}
+</div>
+</div>
+</div>
+{% endblock %}

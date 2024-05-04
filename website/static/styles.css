@@ -1,0 +1,161 @@
+.navbar {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.navbar-nav {
+  align-items: center !important;
+}
+main {
+  min-height: 100vh;
+}
+h1 {
+  text-align: center;
+  margin: 20px auto;
+}
+form {
+  text-align: center;
+}
+
+.danger {
+  color: red;
+}
+.nav-link.danger {
+  color: rgba(255, 0, 0, 0.7);
+}
+.nav-link.danger:hover {
+  color: rgb(255, 0, 0);
+}
+
+.books-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+.card-text {
+  margin-bottom: 10px;
+}
+
+.card-subtitle {
+  margin-bottom: 16px;
+}
+
+.absolute {
+  position: absolute;
+  bottom: 1rem;
+  right: 1rem;
+}
+
+.absolute-left {
+  position: absolute;
+  bottom: 1rem;
+  right: 4.5rem;
+}
+
+h1,
+h2,
+h3 {
+  text-align: center;
+}
+.subtitle {
+  color: #656565;
+  margin-bottom: 30px;
+}
+
+.grid-row {
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.flex-form {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.flex-form-item {
+  margin: auto 20px;
+}
+.flex-star {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  display: flex;
+  justify-content: center;
+  color: #edcb34;
+}
+.review-card {
+  margin: 5px auto;
+  width: 70vw;
+  padding-top: 10px;
+}
+.footer {
+  color: #656565;
+}
+
+.user-icon {
+  font-size: 25px;
+}
+
+footer {
+  text-align: center;
+}
+.separator {
+  height: 5vh;
+}
+.back-arrow {
+  font-size: 15px;
+  position: fixed;
+  top: 80px;
+  left: 10px;
+}
+
+@media only screen and (max-width: 900px) {
+  .book-cover {
+    display: block;
+    margin: 0 auto;
+  }
+  .book-cover-info {
+    min-width: 261px;
+    display: block;
+    margin: 10px auto;
+  }
+  .book-info-card {
+    width: 90vw !important;
+    display: block;
+    margin: 10px auto !important;
+    max-width: 700px;
+  }
+  .description-col {
+    min-width: 300px !important;
+    width: 90vw !important;
+    margin: 10px 5px;
+    text-align: justify;
+  }
+  main {
+    width: 100vw !important;
+  }
+  .review-card {
+    width: 90vw !important;
+    padding-top: 20px;
+  }
+  .review-card-my-reviews {
+    padding-bottom: 30px;
+  }
+  .title,
+  .subtitle {
+    margin-left: 5px !important;
+    margin-right: 5px !important;
+  }
+  .back-arrow {
+    font-size: 15px;
+    position: fixed;
+    top: 70px;
+    left: 10px;
+  }
+  #add_description {
+    width: 80vw !important;
+    display: block;
+    margin: auto;
+  }
+}
