@@ -31,7 +31,7 @@ def sign_in():
     elif len(password1) < 6:
         flash("Password needs to be at least 6 character long", category="error")
     elif password1 != password2:
-        flash("Password don't match", category="error")
+        flash("Passwords don't match", category="error")
     else:
         new_user = User(
             email=email, username=username, password=generate_password_hash(password1)
@@ -62,7 +62,7 @@ def login():
             flash("Wrong password", category="error")
             return redirect("/login")
     else:
-        flash("User doesn't exists", category="error")
+        flash("User doesn't exist", category="error")
         return redirect("/login")
 
 
@@ -98,7 +98,7 @@ def delete_account():
             flash("Wrong password", category="error")
             return redirect("/delete_account")
     else:
-        flash("User doesn't exists", category="error")
+        flash("User doesn't exist", category="error")
         return redirect("/delete_account")
 
 
